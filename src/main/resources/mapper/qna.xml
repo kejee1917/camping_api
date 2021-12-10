@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.gocamping.mapper.QnaMapper">
+
+<select id="selectQnaData" resultType="Qna">
+	/* QnaMapper.selectQnaData */
+	SELECT *
+	FROM CAMPING_QUESTION Q INNER JOIN CAMPING_ANSWER A 
+	ON Q.QUE_NO = A.QUE_NO 
+	WHERE Q.QUE_NO = #{queNo}
+</select> 
+
+<select id="selectAnswerData" resultType="Qna">
+	/* QnaMapper.selectAnswerData */
+	SELECT NO, ANSWER
+	FROM CAMPING_ANSWER
+	WHERE QUE_NO = #{queNo}
+	AND ANS_NO = #{ansNo} 
+</select>
+
+</mapper>
