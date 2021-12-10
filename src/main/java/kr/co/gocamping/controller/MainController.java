@@ -25,7 +25,7 @@ public class MainController {
 	
 	
 	private final MainService mainService;
-    
+    //////수정
 	List<String> selectNoList = new ArrayList<String>();
     /**
      *  메인
