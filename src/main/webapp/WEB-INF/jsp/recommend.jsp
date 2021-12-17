@@ -20,7 +20,7 @@
 
 <div class="main">
 	<div class="img-box">
-	<%-- ${results.data.resultList } --%>
+	${results.data.resultList }  
 	</div>
 
 	<div class="text-box">

@@ -7,9 +7,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
@@ -19,7 +21,7 @@ import kr.co.gocamping.vo.Qna;
 
 public class DataUtil {
 	
-	static public Map<String, List<String>> doNmData(){
+	static private Map<String, List<String>> doNmData(){
 		
 		Map<String, List<String>> doNmMap = new HashMap<String, List<String>>();
 		String[] doNmArray1 = {"경기","서울","인천"};
@@ -39,7 +41,7 @@ public class DataUtil {
 		return doNmMap;
 	}
 
-	static public Map<String, List<String>> lctClData(){
+	static private Map<String, List<String>> lctClData(){
 		
 		Map<String, List<String>> lctClMap = new HashMap<String, List<String>>();
 		String[] lctClArray1 = {"산","숲"};
@@ -53,7 +55,7 @@ public class DataUtil {
 		return lctClMap;
 	}
 	
-	static public JSONArray selectCampingData() {
+	static private JSONArray selectCampingData() {
     	
 	   	 StringBuffer result = new StringBuffer();
 	   	 JSONArray jsonArray = new JSONArray();
@@ -95,45 +97,102 @@ public class DataUtil {
 		
 		List<Object> jsonlist = new ArrayList<>();
 		
+		//외부 변수를 내부에서 사용할 때 상수로 선언해야만 함.
+		final Predicate<Object>[] predArr = predIntegrate(selectNoList, answerDataList);
+		
 		jsonlist = jsonArray.toList().stream()
 		.filter(jsonobj -> {
+			return Arrays.stream(predArr).allMatch( pred-> pred.test(jsonobj));
+		})
+		//.limit(3)
+		.collect(Collectors.toList());
+		
+		//shuffle
+		Collections.shuffle(jsonlist);
+		if(jsonlist != null) {
+			jsonlist = jsonlist.stream().limit(3).collect(Collectors.toList());;
+		}
+		
+		return jsonlist;
+	}
+	
+	static private Predicate<Object>[] predIntegrate(List<String> selectNoList, List<Qna> answerDataList) {
+		Predicate<Object>[] predArr = new Predicate[7];
+		 
+		predArr[0] = predDoNm(selectNoList);
+		predArr[1] = predLctCl(selectNoList);
+		predArr[2] = predInduty(answerDataList);
+		predArr[3] = predSbrsCl(selectNoList, answerDataList);
+		predArr[4] = predToiletCo(selectNoList);
+		predArr[5] = predSwrmCo(selectNoList);
+		predArr[6] = predAnimalCmgCl(selectNoList);
+		
+		return predArr;
+	}
+	
+	
+	static private Predicate<Object> predDoNm(List<String> selectNoList) {
+		return jsonobj -> {
 			String doNm = (String)((Map)jsonobj).get("doNm");
 			return DataUtil.doNmData().get(selectNoList.get(0)).stream().anyMatch(city -> doNm.contains(city));
-		}).filter(jsonobj -> {
+		};
+	}
+	
+	static private Predicate<Object> predLctCl(List<String> selectNoList) {
+		return jsonobj -> {
 	    	String lctCl = (String)((Map)jsonobj).get("lctCl");
 	    	return selectNoList.get(1).equals("4")
 	    			?lctCl!=null && lctCl.length()>0
 	    			:lctCl!=null && DataUtil.lctClData().get(selectNoList.get(1)).stream().anyMatch(env -> lctCl.contains(env));
-	    }).filter(jsonobj -> {
+		};
+	}
+	
+	static private Predicate<Object> predInduty(List<Qna> answerDataList) {
+		return jsonobj -> {
 	    	String induty = (String)((Map)jsonobj).get("induty");
 	    	String answer = answerDataList.get(2).getAnswer().substring(0, 2);
 	    	return induty!=null && induty.contains(answer);
-	    }).filter(jsonobj -> {
+		};	
+	}
+	
+	static private Predicate<Object> predSbrsCl(List<String> selectNoList, List<Qna> answerDataList) {
+		return jsonobj -> {
 	    	String sbrsCl = (String)((Map)jsonobj).get("sbrsCl");
 	    	String answer = answerDataList.get(3).getAnswer();
 	    	return selectNoList.get(3).equals("4")
 	    			?sbrsCl!=null && sbrsCl.length()>0
 	    			:sbrsCl!=null && sbrsCl.contains(answer);
-	    }).filter(jsonobj -> {
+		};				
+	}
+	
+	
+	static private Predicate<Object> predToiletCo(List<String> selectNoList) {
+		return jsonobj -> {
 	    	int toiletCo = (int)((Map)jsonobj).get("toiletCo");
 	    	return selectNoList.get(4).equals("1")
 	    			?toiletCo > 0
 	    			:toiletCo >= 0;
-	    }).filter(jsonobj -> {
+		};			
+	}
+	
+	static private Predicate<Object> predSwrmCo(List<String> selectNoList) {
+		return jsonobj -> {
 	    	int swrmCo = (int)((Map)jsonobj).get("swrmCo");
 	    	return selectNoList.get(5).equals("1")
 	    			?swrmCo > 0
 	    			:swrmCo >= 0;
-	    }).filter(jsonobj -> {
+		};			
+	}
+	
+	static private Predicate<Object> predAnimalCmgCl(List<String> selectNoList) {
+		return jsonobj -> {
 	    	String animalCmgCl = (String)((Map)jsonobj).get("animalCmgCl");
 	    	return selectNoList.get(6).equals("1")
 	    			?animalCmgCl!= null && !animalCmgCl.equals("불가능")
 	    			:animalCmgCl!= null;
-	    }).limit(3)
-		.collect(Collectors.toList());
-		
-		return jsonlist;
+		};			
 	}
+	
 	
 //  list = jsonaArray.toList().stream()
 //  .filter(jobj -> {
