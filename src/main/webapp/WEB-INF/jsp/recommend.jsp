@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <script type="text/javascript" src="/app/js/recommend.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44ee4d40b15953be9dcbeb3e3e2fccea"></script>
 
 
 <link rel="stylesheet" href="/css/main.css">
- <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
 </head>
@@ -20,15 +20,15 @@
 
 <div class="main">
 	<div class="img-box">
-	${results.data.resultList }  
+	<%-- ${results.data.resultList }  --%> 
 	</div>
 
-	<div class="text-box">
+<!-- 	<div class="text-box">
 		<p class="text" align="center">
 		당신과 찰떡인 캠핑장은?
 		<br>
 		</p>
-	</div>
+	</div> -->
 			
 	<div class="result-box">
 		<div class="camp-info" align="center">
@@ -41,15 +41,19 @@
 			
 			<c:forEach var="list" items="${results.data.resultList}" varStatus="i" end="0">
 				<div id="recommend-result">
-					<h1>추천 캠핑장</h1>
-					<ul>
-						<li class="name">캠핑장 이름 <span>${list.facltNm}</span></li>
-						<li class="name">자연환경 <span>${list.lctCl}</span></li>
-						<li class="name">캠핑장 유형 <span>${list.induty}</span></li>
-						<li class="name">주요 시설 <span>${list.sbrsCl}</span></li>
-						<li class="name">화장실 개수 <span>${list.toiletCo} 개</span></li>
-						<li class="name">샤워장 개수 <span>${list.swrmCo} 개</span></li>
-						<li class="name">반려동물 동반여부 <span>${list.animalCmgCl}</span></li>
+					<br>
+					<h1>당신과 찰떡인 캠핑장은?</h1>
+					<img alt="" src="${list.firstImageUrl}" width="80%">
+					<ul id="recommend-list">
+						<li class="name" >캠핑장 이름 <span>${list.facltNm}</span></li>
+						<li class="name" >자연환경 <span>${list.lctCl}</span></li>
+						<li class="name" >캠핑장 유형 <span>${list.induty}</span></li>
+						<li class="name" >주요 시설 <span>${list.sbrsCl}</span></li>
+						<li class="name" >화장실 개수 <span>${list.toiletCo} 개</span></li>
+						<li class="name" >샤워장 개수 <span>${list.swrmCo} 개</span></li>
+						<li class="name" >반려동물 동반여부 <span>${list.animalCmgCl}</span></li>
+						<li class="name" >주소 <span>${list.addr1} ${list.addr2}</span></li>
+						<li class="name" >전화 <span>${list.tel}</span></li>
 					</ul>
 				</div>
 				<input type="hidden" id="map-x" value="${list.mapX}">
@@ -75,6 +79,8 @@
 	</div>
 	
 </div>
+
+
 
 </body>                   
 </html>

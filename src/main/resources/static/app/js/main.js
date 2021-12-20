@@ -18,22 +18,8 @@ var $main = {
 	},	
 	
 	startSetForm : function() {
-		location.href = "/gocamp/question";
 		
-/*			$.ajax({
-			url: "question",
-			type: "get",
-			dataType: "text",
-			success: function(data) {
-				let html = $('<div>').html(data);
-				let content = html.find("div.main").html();
-				$('.main').html(content);
-				
-			},
-			error: function() {
-				console.log("error");
-			},
-		});*/
+		location.href = "/gocamp/question";
 	}
 };
 

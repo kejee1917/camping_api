@@ -91,14 +91,14 @@ public class DataUtil {
 	        return jsonArray;
   }
 	
-	static public List<Object> selectResultData(List<String> selectNoList, List<Qna> answerDataList){
+	static public List<Object> selectResultData(Map<String, Qna> selectNoMap){
 		//가공 전 전체 data
 		JSONArray jsonArray = selectCampingData();
 		
 		List<Object> jsonlist = new ArrayList<>();
 		
 		//외부 변수를 내부에서 사용할 때 상수로 선언해야만 함.
-		final Predicate<Object>[] predArr = predIntegrate(selectNoList, answerDataList);
+		final Predicate<Object>[] predArr = predIntegrate(selectNoMap);
 		
 		jsonlist = jsonArray.toList().stream()
 		.filter(jsonobj -> {
@@ -116,78 +116,78 @@ public class DataUtil {
 		return jsonlist;
 	}
 	
-	static private Predicate<Object>[] predIntegrate(List<String> selectNoList, List<Qna> answerDataList) {
+	static private Predicate<Object>[] predIntegrate(Map<String, Qna> selectNoMap) {
 		Predicate<Object>[] predArr = new Predicate[7];
 		 
-		predArr[0] = predDoNm(selectNoList);
-		predArr[1] = predLctCl(selectNoList);
-		predArr[2] = predInduty(answerDataList);
-		predArr[3] = predSbrsCl(selectNoList, answerDataList);
-		predArr[4] = predToiletCo(selectNoList);
-		predArr[5] = predSwrmCo(selectNoList);
-		predArr[6] = predAnimalCmgCl(selectNoList);
+		predArr[0] = predDoNm(selectNoMap);
+		predArr[1] = predLctCl(selectNoMap);
+		predArr[2] = predInduty(selectNoMap);
+		predArr[3] = predSbrsCl(selectNoMap);
+		predArr[4] = predToiletCo(selectNoMap);
+		predArr[5] = predSwrmCo(selectNoMap);
+		predArr[6] = predAnimalCmgCl(selectNoMap);
 		
 		return predArr;
 	}
 	
 	
-	static private Predicate<Object> predDoNm(List<String> selectNoList) {
+	static private Predicate<Object> predDoNm(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 			String doNm = (String)((Map)jsonobj).get("doNm");
-			return DataUtil.doNmData().get(selectNoList.get(0)).stream().anyMatch(city -> doNm.contains(city));
+			return DataUtil.doNmData().get(selectNoMap.get("1").getSelectNo()).stream().anyMatch(city -> doNm.contains(city));
 		};
 	}
 	
-	static private Predicate<Object> predLctCl(List<String> selectNoList) {
+	static private Predicate<Object> predLctCl(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	String lctCl = (String)((Map)jsonobj).get("lctCl");
-	    	return selectNoList.get(1).equals("4")
+	    	return selectNoMap.get("2").getSelectNo().equals("4")
 	    			?lctCl!=null && lctCl.length()>0
-	    			:lctCl!=null && DataUtil.lctClData().get(selectNoList.get(1)).stream().anyMatch(env -> lctCl.contains(env));
+	    			:lctCl!=null && DataUtil.lctClData().get(selectNoMap.get("2").getSelectNo()).stream().anyMatch(env -> lctCl.contains(env));
 		};
 	}
 	
-	static private Predicate<Object> predInduty(List<Qna> answerDataList) {
+	static private Predicate<Object> predInduty(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	String induty = (String)((Map)jsonobj).get("induty");
-	    	String answer = answerDataList.get(2).getAnswer().substring(0, 2);
+	    	String answer = selectNoMap.get("3").getAnswer().substring(0, 2);
 	    	return induty!=null && induty.contains(answer);
 		};	
 	}
 	
-	static private Predicate<Object> predSbrsCl(List<String> selectNoList, List<Qna> answerDataList) {
+	static private Predicate<Object> predSbrsCl(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	String sbrsCl = (String)((Map)jsonobj).get("sbrsCl");
-	    	String answer = answerDataList.get(3).getAnswer();
-	    	return selectNoList.get(3).equals("4")
+	    	String answer = selectNoMap.get("4").getAnswer();
+	    	return selectNoMap.get("4").getSelectNo().equals("4")
 	    			?sbrsCl!=null && sbrsCl.length()>0
 	    			:sbrsCl!=null && sbrsCl.contains(answer);
 		};				
 	}
 	
 	
-	static private Predicate<Object> predToiletCo(List<String> selectNoList) {
+	static private Predicate<Object> predToiletCo(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	int toiletCo = (int)((Map)jsonobj).get("toiletCo");
-	    	return selectNoList.get(4).equals("1")
+	    	return selectNoMap.get("5").getSelectNo().equals("1")
 	    			?toiletCo > 0
 	    			:toiletCo >= 0;
 		};			
 	}
 	
-	static private Predicate<Object> predSwrmCo(List<String> selectNoList) {
+	static private Predicate<Object> predSwrmCo(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	int swrmCo = (int)((Map)jsonobj).get("swrmCo");
-	    	return selectNoList.get(5).equals("1")
+	    	return selectNoMap.get("6").getSelectNo().equals("1")
 	    			?swrmCo > 0
 	    			:swrmCo >= 0;
 		};			
 	}
 	
-	static private Predicate<Object> predAnimalCmgCl(List<String> selectNoList) {
+	static private Predicate<Object> predAnimalCmgCl(Map<String, Qna> selectNoMap) {
 		return jsonobj -> {
 	    	String animalCmgCl = (String)((Map)jsonobj).get("animalCmgCl");
-	    	return selectNoList.get(6).equals("1")
+	    	return selectNoMap.get("7").getSelectNo().equals("1")
 	    			?animalCmgCl!= null && !animalCmgCl.equals("불가능")
 	    			:animalCmgCl!= null;
 		};			

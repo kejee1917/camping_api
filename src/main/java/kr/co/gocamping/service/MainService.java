@@ -30,42 +30,28 @@ public class MainService {
 	
 	private final QnaMapper qnaMapper;
 	
-	List<Qna> answerDataList = new ArrayList<Qna>();
 	List<Object> jsonlist = new ArrayList<>();
 	
 	public Results selectQnaData(Qna qna) {
 		
-		List<Object> dataList = new ArrayList<>();
 		List<Qna> qnaList = qnaMapper.selectQnaData(qna);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("qna", qnaList); 
-		data.put("dataList", dataList);
 		
 		return Results.builder().data(data).success(true).build();
 	}
 	
 
-	public Results selectResultData(List<String> selectNoList, String pageNo) {
+	public Results selectResultData(Map<String, Qna> selectNoMap, String pageNo) {
 		
 		List<Object> resultlist = new ArrayList<>();
-		
 		// 맨 처음 결과 뿌려 줄 때
 		if(pageNo == null) {
 			pageNo = "1";
-			Qna qna = new Qna();
 			
-			//초기화 작업
-			answerDataList = new ArrayList<Qna>();
-			jsonlist = new ArrayList<>();
-			
-			for(int i=0; i<selectNoList.size(); i++) {
-				qna.setAnsNo(selectNoList.get(i));
-				qna.setQueNo((i+1) + "");
-				answerDataList.add(qnaMapper.selectAnswerData(qna));
-			}
-			
-			jsonlist = DataUtil.selectResultData(selectNoList, answerDataList);
+			jsonlist = DataUtil.selectResultData(selectNoMap);
+			log.debug(jsonlist.size() + "");
 		}
 		
 		resultlist= jsonlist.stream().skip(Integer.parseInt(pageNo)-1).collect(Collectors.toList());

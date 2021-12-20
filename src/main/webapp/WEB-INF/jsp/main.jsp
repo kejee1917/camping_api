@@ -16,7 +16,7 @@
 
 <div class="main">
 	<div class="img-box">
-		<img id="img" alt="" src="/images/campingmain.png" width="100%" height="680px">
+		<img id="img" alt="" src="/images/campingmain.png" width="100%" height="830px">
 	</div>
 
 	<div class="text-box">

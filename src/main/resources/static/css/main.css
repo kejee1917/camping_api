@@ -2,13 +2,12 @@
 
     body {
         background-color: #121146;
-        font-family: 'Ubuntu', sans-serif;
     }
     
     .main {
         background-color: #FFFFFF;
         width: 1000px;
-        height: 1000px;
+        height: 1300px;
         margin: 7em auto;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
     }
@@ -21,6 +20,10 @@
         font-size: 33px;
     }
     
+    .question {
+    	font-size: 27px;
+    	font-weight: bold;
+    }
     .question-box {
 	    width: 76%;
 	    color: rgb(38, 50, 56);
@@ -34,11 +37,10 @@
 	    outline: none;
 	    box-sizing: border-box;
 	    border: 2px solid rgba(0, 0, 0, 0.02);
-	    margin-bottom: 50px;
+	    margin-bottom: 5%;
 	    margin-left: 10%;
-	    margin-top: 5%;
+	    margin-top: 10%;
 	    text-align: center;
-	    margin-bottom: 27px;
 	    font-family: 'Ubuntu', sans-serif;
     }
     
@@ -59,10 +61,9 @@
 	    outline: none;
 	    box-sizing: border-box;
 	    border: 2px solid rgba(0, 0, 0, 0.02);
-	    margin-bottom: 50px;
+	    margin-bottom: 5%;
 	    margin-left: 10%;
 	    text-align: center;
-	    margin-bottom: 27px;
 	    font-family: 'Ubuntu', sans-serif;
     }
     
@@ -109,7 +110,8 @@
         cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: linear-gradient(to right, #ACD5B8, #7FB39D);
+        background: -webkit-linear-gradient(to right, #267871, #136a8a);
+		background: linear-gradient(to right, #267871, #136a8a);
         border: 0;
         padding-left: 50px;
         padding-right: 50px;
@@ -133,7 +135,7 @@
         padding-bottom: 10px;
         padding-top: 10px;
         font-family: 'Ubuntu', sans-serif;
-        margin:auto;
+        margin-left: 38%;
         display:block;
         font-size: 22px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
@@ -150,7 +152,7 @@
         padding-bottom: 10px;
         padding-top: 10px;
         font-family: 'Ubuntu', sans-serif;
-        margin:auto;
+        margin :auto;
         display:block;
         font-size: 22px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
@@ -168,7 +170,7 @@
         padding-bottom: 10px;
         padding-top: 10px;
         font-family: 'Ubuntu', sans-serif;
-        margin:auto;
+        margin-left: 37%;
         display:block;
         font-size: 22px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
@@ -203,9 +205,9 @@
 	h1 {
 	    font-size: 25px;
 	    text-align: center;
-	    margin:auto;
+	    margin:20px;
         display:block;
-	    padding: 10px;
+	    padding: 13px;
 	    color: #fff;
 	    background: #7FB39D;
 	    border-radius: 30px;
@@ -218,11 +220,11 @@
 	
 	#recommend-result ul li {
 	    line-height: 30px; /*li 세로 간격*/
+	    text-align: left;
+	    padding-left: 20px;
+	    font-weight: bold;
 	}
 	
-	#recommend-result ul li:last-child {
-	    border-bottom: 1px solid #000;
-	}
 	
 	#recommend-result ul li:nth-child(2n) { 
 	    background: #D2E7D6;
@@ -233,7 +235,8 @@
 	    display: block;
 	    float: right;
 	    width: 600px;
-	    text-align: center;
+	    text-align: left;
+	    padding-left: 20px;
 	}
 	
 	.paging {
@@ -243,12 +246,12 @@
 	
 	.goPage{
 		margin: 10px;
-		
+		text-align: center;
 	}
 	
 	#map {
-		width:90%;
-		height:350px;
+		width:80%;
+		height:250px;
 		margin:auto;
 	}
 
@@ -259,6 +262,14 @@
 	.clicked {
 		color: yellow;
 	}
+	
+	#copyBtn {
+		color: white;
+		background-color: #121146; 
+		border-radius: 6px; 
+	}
+	
+	
 	
 	
 	

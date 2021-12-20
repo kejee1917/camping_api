@@ -25,7 +25,7 @@
 			</c:if>
 			
 			<c:forEach var="list" items="${results.data.qna}" varStatus="i" end="0">
-				<p>${list.queNo}. ${list.question}</p>
+				<p class="question">${list.queNo}. ${list.question}</p>
 				<input type="hidden" id="hidden-queNo" name="queNo" value="${list.queNo}">
 			</c:forEach>	
 			
@@ -36,6 +36,7 @@
 			<c:forEach var="list" items="${results.data.qna}" varStatus="i">
 				<button class="answer-eachbox" value="${list.ansNo}">
 				${list.ansNo}. ${list.answer}
+				<input type="hidden" id="hidden-answer" name="answer" value="${list.answer}">
 				</button>
 				
 			</c:forEach>	

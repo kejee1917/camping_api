@@ -12,12 +12,12 @@
 	WHERE Q.QUE_NO = #{queNo}
 </select> 
 
-<select id="selectAnswerData" resultType="Qna">
+<!-- <select id="selectAnswerData" resultType="Qna">
 	/* QnaMapper.selectAnswerData */
 	SELECT NO, ANSWER
 	FROM CAMPING_ANSWER
 	WHERE QUE_NO = #{queNo}
 	AND ANS_NO = #{ansNo} 
-</select>
+</select> -->
 
 </mapper>

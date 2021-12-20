@@ -1,13 +1,12 @@
 package kr.co.gocamping.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,10 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MainController {
 	
-	
 	private final MainService mainService;
-    //////수정
-	List<String> selectNoList = new ArrayList<String>();
+	
+	Map<String, Qna> selectNoMap = new HashMap<String, Qna>();
+	
     /**
      *  메인
      *
@@ -50,31 +49,16 @@ public class MainController {
     @GetMapping("/question")
     public String question(Model model, Qna qna) {
     	
-    	log.debug(">>>>" + qna.toString());
-    	
-//    	//초기 form
-//    	if(qna.getQueNo() == null) { 
-//    		//list 초기화
-//    		selectList = new ArrayList<String>();
-//    		qna.setQueNo("1");              
-//    	}else if(qna.getQueNo().equals("8")) {
-//    		selectList.add(qna.getSelectNo());
-//    		log.debug(selectList.toString());
-//    		return "redirect:/gocamp/result";
-//    	}
-    	
     	switch (qna.getQueNo()==null?"null":qna.getQueNo()) {
 		case "null":
-			//list 초기화
-			selectNoList = new ArrayList<String>();
+			//초기화
+			selectNoMap = new HashMap<String, Qna>();
     		qna.setQueNo("1"); 
 			break;
-//		case "8":
-//			selectNoList.add(qna.getSelectNo());
-//    		log.debug(selectNoList.toString());
-//    		return "redirect:/gocamp/result";
 		default:
-			selectNoList.add(qna.getSelectNo());
+			int queNo = Integer.parseInt(qna.getQueNo());
+			queNo = queNo - 1;
+			selectNoMap.put(queNo + "", qna);
 			break;
 		}
     	
@@ -91,31 +75,21 @@ public class MainController {
      * @param qna
      * @return
      */
-    @GetMapping("/result/{selectNo}")
+    @GetMapping("/result")
     @ResponseBody
-    public Results result(Model model, Qna qna, String pageNum, @PathVariable String selectNo) {
+    public Results result(Model model, Qna qna, String pageNum) {
+    	
     	Results results = new Results();
-    	selectNoList.add(selectNo);
-    	log.debug("sel list>>>" + selectNoList.toString());
-    	//log.debug("page>>>" + pageNum);
+    	selectNoMap.put(qna.getQueNo(), qna);
+    	log.debug("sel map>>>" + selectNoMap.toString());
     	
-//    	int pageFirst = 0;
-//    	if(pageNum == null || pageNum.equals("1")) {
-//    		pageFirst = 0;
-//    	}else {
-//    		pageFirst = Integer.parseInt( pageNum ) - 1;
-//    	}
-    	
-    	if(selectNoList.size() == 7) {
+    	if(selectNoMap.size() == 7) {
     		results.setSuccess(true);
     	}else {
     		results.setSuccess(false);
     		results.setMessage("잠시 후 다시 시도해주십시오.");
     	}
     	
-    	//Results results = mainService.selectResultData(selectNoList, pageFirst);
-    	 
-    	//model.addAttribute("results", results);
     	return results;
     }
     
@@ -124,7 +98,7 @@ public class MainController {
     public String recommend(Model model, String pageNo) {
     	
     	log.debug(pageNo);
-    	Results results = mainService.selectResultData(selectNoList, pageNo);
+    	Results results = mainService.selectResultData(selectNoMap, pageNo);
     	
     	model.addAttribute("results", results);
     	

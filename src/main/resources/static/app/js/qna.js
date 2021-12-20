@@ -38,12 +38,14 @@ var $qna = {
 			let queNo = $("#hidden-queNo").val(); 
 			let selectNo = $(".active").val();
 			queNo = parseInt(queNo) + 1;
-
+			
+			let answer = $(".active #hidden-answer").val(); 
+			
 			$.ajax({
 				url: "question",
 				type: "get",
 				dataType: "text",
-				data: {'queNo':queNo, 'selectNo':selectNo},
+				data: {'queNo':queNo, 'selectNo':selectNo, 'answer':answer},
 				success: function(data) {
 					let html = $('.main').html(data);
 					let content = html.find("div.main").html();
@@ -71,11 +73,14 @@ var $qna = {
 			alert("질문에 대한 답을 선택해주세요.");
 			
 		}else {
+			let queNo = $("#hidden-queNo").val(); 
 			let selectNo = $(".active").val();
+			let answer = $(".active #hidden-answer").val(); 
+			
 			$.ajax({
-				url: "result/" + selectNo,
+				url: "result",
 				type: "get",
-				//data: {'selectNo':selectNo},
+				data: {'queNo':queNo, 'selectNo':selectNo, 'answer':answer},
 				success: function(data) {
 					if (data.success) {
 					   /* $("body").hide();

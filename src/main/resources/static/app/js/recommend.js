@@ -1,9 +1,12 @@
+let selected = null;
+
 var $recommend = {
 	
 	/**
 	 * 초기화
 	 */
 	init : function() {
+		
 		this.fnAddEventListener();
 	},
 	
@@ -22,9 +25,27 @@ var $recommend = {
 			$recommend.goPage( $(this) );
 		});
 		
+		$("#copyBtn").off("click").on("click", function() {
+			$recommend.copyFunc();
+		});
+		
+//		$( "#recommend-list" ).sortable();
+
+		$(".name").attr("draggable", "true");
+		
+		$(".name").off("dragstart").on("dragstart", function() {
+			$recommend.dragStart(event);
+		});
+		$(".name").off("dragover").on("dragover", function() {
+			$recommend.dragOver(event);
+		});
+		$(".name").off("dragend").on("dragend", function() {
+			$recommend.dragEnd();
+		});
+		
+		
 	},	
 	setResultForm: function() {
-		
 		if($("#recommend-result").length != 0) {
 			
 			let mapX = $("#map-x").val();
@@ -73,12 +94,51 @@ var $recommend = {
 			},
 			
 		});	*/	
-	}
+	},
+	
+	copyFunc: function() {
+		let copyText = $("#addrText").text();
+		alert(copyText);
+		
+	},
 	
 	
-
+	dragOver : function(e) { 
+		if (this.isBefore(selected, e.target)) { 
+			if(e.target.className == "name") {
+				e.target.parentNode.insertBefore(selected, e.target);
+			}
+		} else { 
+			if(e.target.className == "name") {
+				e.target.parentNode.insertBefore(selected, e.target.nextSibling);
+			}
+		} 
+		
+	}, 
+		
+	dragEnd: function () {
+		selected = null;
+	},
+	
+	dragStart: function (e) { 
+		e.dataTransfer.effectAllowed = 'move';
+		e.dataTransfer.setData('text/plain', null);
+		selected = e.target;
+	},
+	
+	isBefore: function (el1, el2) { 
+		let cur;
+		if (el2.parentNode === el1.parentNode) { 
+			for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
+				if (cur === el2) return true 
+			} 
+		} 
+		return false; 
+	},
+	
 };
 
 $(function(){
 	$recommend.init();
+	
 });

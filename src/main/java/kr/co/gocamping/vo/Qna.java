@@ -1,5 +1,6 @@
 package kr.co.gocamping.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
@@ -21,5 +22,6 @@ public class Qna {
 	private String question;
 	
 	private String selectNo;
+	
 	
 }
