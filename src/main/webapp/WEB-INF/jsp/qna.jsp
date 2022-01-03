@@ -9,6 +9,10 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="/app/js/qna.js"></script>
 
+ <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -41,6 +45,7 @@
 				
 			</c:forEach>	
 		</div>
+		
 	</div>
 	
 	<div class="btn-box">

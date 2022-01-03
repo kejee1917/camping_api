@@ -21,11 +21,8 @@ var $qna = {
 		});
 		
 		$(".answer-eachbox").off("click").on("click", function() {
-			//console.log(this.value);
-			//$(this).css("background", "red");
 			$(".answer-eachbox").removeClass("active");
 			$(this).addClass("active");
-
 		});
 	},	
 	
@@ -54,7 +51,6 @@ var $qna = {
 					if(queNo == "7") {
 						$("#nextBtn").css("display", "none");
 						$("#lastBtn").css("display", "block");
-						//$("#nextBtn").text("내게 꼭 맞는 캠핑장은?");
 					}
 					
 					
@@ -83,11 +79,6 @@ var $qna = {
 				data: {'queNo':queNo, 'selectNo':selectNo, 'answer':answer},
 				success: function(data) {
 					if (data.success) {
-					   /* $("body").hide();
-				        $("body").fadeIn(1000);  // 1초 뒤에 사라 지자 
-				     
-				        setTimeout(function(){$("body").fadeOut(1000);},1000);
-				        setTimeout(function(){location.href= "/gocamp/recommend?pageNum=0"},3000);*/
 						location.href= "/gocamp/recommend";
 					} else {
 						alert(data.message);

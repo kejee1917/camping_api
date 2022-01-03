@@ -34,7 +34,7 @@ public class Results implements Serializable {
     this.message = message;
     this.code = code;
   }
-
+ 
   public Results(boolean success, String message, String code, Map<String, Object> data) {
     this.success = success;
     this.message = message;

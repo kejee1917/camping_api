@@ -15,12 +15,13 @@ var $main = {
 		$("#startBtn").off("click").on("click", function() {
 			$main.startSetForm();
 		});
+		
 	},	
 	
 	startSetForm : function() {
-		
 		location.href = "/gocamp/question";
-	}
+	},
+	
 };
 
 $(function(){

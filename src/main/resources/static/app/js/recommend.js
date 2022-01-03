@@ -25,12 +25,10 @@ var $recommend = {
 			$recommend.goPage( $(this) );
 		});
 		
-		$("#copyBtn").off("click").on("click", function() {
-			$recommend.copyFunc();
+		$("#shuffleBtn").off("click").on("click", function(e) {
+			$recommend.shuffleFunc();
 		});
 		
-//		$( "#recommend-list" ).sortable();
-
 		$(".name").attr("draggable", "true");
 		
 		$(".name").off("dragstart").on("dragstart", function() {
@@ -46,6 +44,7 @@ var $recommend = {
 		
 	},	
 	setResultForm: function() {
+		
 		if($("#recommend-result").length != 0) {
 			
 			let mapX = $("#map-x").val();
@@ -76,24 +75,12 @@ var $recommend = {
 	},
 	
 	goPage : function(clickNum) {
-		let pageNo = clickNum.attr("data-value");
+		pageNo = clickNum.attr("data-value");
 		location.href = "/gocamp/recommend?pageNo=" + pageNo;
-
-/*		$(".fa-circle").removeClass("clicked");
-		$(this).addClass("clicked");*/
-		
-/*		$.ajax({
-			url: "recommend",
-			type: "get",
-			data: { 'pageNo':pageNo },
-			success: function(data) {
-				
-			},
-			error: function() {
-				console.log("error");
-			},
-			
-		});	*/	
+	},
+	
+	shuffleFunc: function() {
+		location.href = "/gocamp/recommend";
 	},
 	
 	copyFunc: function() {
@@ -103,14 +90,28 @@ var $recommend = {
 	},
 	
 	
+	
+	//selected 마우스로 선택 된 라인
+	dragStart: function (e) { 
+		console.log("dragStart e>> " +e.target);
+		e.dataTransfer.effectAllowed = 'move';
+		e.dataTransfer.setData('text/plain', null);
+		selected = e.target;
+		console.log("dragStart selected>> " + selected);
+	},
+	
 	dragOver : function(e) { 
+		
+		//위쪽으로 이동했을 때
 		if (this.isBefore(selected, e.target)) { 
 			if(e.target.className == "name") {
-				e.target.parentNode.insertBefore(selected, e.target);
+				e.target.parentNode.insertBefore(selected, e.target);   //부모노드의 e.target앞에 selected 넣는다.
+				
 			}
 		} else { 
 			if(e.target.className == "name") {
-				e.target.parentNode.insertBefore(selected, e.target.nextSibling);
+				console.log("다음");
+				e.target.parentNode.insertBefore(selected, e.target.nextSibling); //부모노드의 e.target 다음 형제 앞에 selected 넣는다.
 			}
 		} 
 		
@@ -120,17 +121,17 @@ var $recommend = {
 		selected = null;
 	},
 	
-	dragStart: function (e) { 
-		e.dataTransfer.effectAllowed = 'move';
-		e.dataTransfer.setData('text/plain', null);
-		selected = e.target;
-	},
-	
 	isBefore: function (el1, el2) { 
 		let cur;
-		if (el2.parentNode === el1.parentNode) { 
-			for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
-				if (cur === el2) return true 
+		
+		if (el2.parentNode === el1.parentNode) { //형제면~
+			console.log(el1.previousSibling);
+			for (cur = el1.previousSibling; cur != null; cur = cur.previousSibling) { //타고타고 위로 반복 null일때까지
+				
+				console.log(cur);
+				if (cur === el2) { //이전노드와 타겟이 같으면
+					return true; 
+				}
 			} 
 		} 
 		return false; 

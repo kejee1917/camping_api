@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MainService {
+public class QnaService {
 	
 	private final QnaMapper qnaMapper;
 	
@@ -46,12 +46,10 @@ public class MainService {
 	public Results selectResultData(Map<String, Qna> selectNoMap, String pageNo) {
 		
 		List<Object> resultlist = new ArrayList<>();
-		// 맨 처음 결과 뿌려 줄 때
+		// 맨 처음 결과 
 		if(pageNo == null) {
 			pageNo = "1";
-			
 			jsonlist = DataUtil.selectResultData(selectNoMap);
-			log.debug(jsonlist.size() + "");
 		}
 		
 		resultlist= jsonlist.stream().skip(Integer.parseInt(pageNo)-1).collect(Collectors.toList());
@@ -62,12 +60,6 @@ public class MainService {
 		
         return Results.builder().data(data).success(true).build();
 	}
-	
-
-	
-	
-
-
 	
 
 }

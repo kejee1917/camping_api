@@ -19,23 +19,14 @@
 <body>
 
 <div class="main">
-	<div class="img-box">
-	<%-- ${results.data.resultList }  --%> 
-	</div>
 
-<!-- 	<div class="text-box">
-		<p class="text" align="center">
-		당신과 찰떡인 캠핑장은?
-		<br>
-		</p>
-	</div> -->
 			
 	<div class="result-box">
 		<div class="camp-info" align="center">
 			<c:if test="${empty results.data.resultList}"> 
-				<p>조건에 맞는 캠핑장을 찾기 어려워요~
-				<br>다시 한 번 도와드릴까요?
-				</p>
+				<span id="no-recommend">조건에 맞는 캠핑장을 찾기 어려워요~
+				<br><br>다시 한 번 도와드릴까요?
+				</span>
 			</c:if>
 			
 			
@@ -43,7 +34,7 @@
 				<div id="recommend-result">
 					<br>
 					<h1>당신과 찰떡인 캠핑장은?</h1>
-					<img alt="" src="${list.firstImageUrl}" width="80%">
+					<img alt="" src="${list.firstImageUrl}" width="640px" height="426px">
 					<ul id="recommend-list">
 						<li class="name" >캠핑장 이름 <span>${list.facltNm}</span></li>
 						<li class="name" >자연환경 <span>${list.lctCl}</span></li>
@@ -63,9 +54,7 @@
 		
 		
 		<div id="map"></div>
-		
 
-		
 		
 		<div class="paging">
 			<c:forEach var="pageNum" begin="1" end="${results.data.totalCount}" varStatus="i">
@@ -74,8 +63,9 @@
 		</div>
 	</div>
 	
-	<div class="btn-box">
+	<div class="btn-box" style="padding-top: 2%">
 		<button class="btn" id="retryBtn">다시 해볼게요!</button>
+		<!-- <button class="btn" id="shuffleBtn">마음에 안들어요!</button> -->
 	</div>
 	
 </div>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.gocamping.service.MainService;
+import kr.co.gocamping.service.QnaService;
 import kr.co.gocamping.vo.Qna;
 import kr.co.gocamping.vo.Results;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/gocamp")
 @RequiredArgsConstructor
-public class MainController {
+public class QnaController {
 	
-	private final MainService mainService;
+	private final QnaService qnaService;
 	
 	Map<String, Qna> selectNoMap = new HashMap<String, Qna>();
 	
@@ -39,6 +39,7 @@ public class MainController {
         return "main";
     }
     
+    
     /**
      *  질답
      *
@@ -51,7 +52,6 @@ public class MainController {
     	
     	switch (qna.getQueNo()==null?"null":qna.getQueNo()) {
 		case "null":
-			//초기화
 			selectNoMap = new HashMap<String, Qna>();
     		qna.setQueNo("1"); 
 			break;
@@ -62,7 +62,7 @@ public class MainController {
 			break;
 		}
     	
-    	Results results  = mainService.selectQnaData(qna);
+    	Results results  = qnaService.selectQnaData(qna);
     	
     	model.addAttribute("results", results);
     	return "qna";
@@ -81,7 +81,6 @@ public class MainController {
     	
     	Results results = new Results();
     	selectNoMap.put(qna.getQueNo(), qna);
-    	log.debug("sel map>>>" + selectNoMap.toString());
     	
     	if(selectNoMap.size() == 7) {
     		results.setSuccess(true);
@@ -97,13 +96,13 @@ public class MainController {
     @GetMapping("/recommend")
     public String recommend(Model model, String pageNo) {
     	
-    	log.debug(pageNo);
-    	Results results = mainService.selectResultData(selectNoMap, pageNo);
+    	Results results = qnaService.selectResultData(selectNoMap, pageNo);
     	
     	model.addAttribute("results", results);
     	
     	return "recommend";
     }
+
     
 
 }

@@ -10,6 +10,7 @@
         height: 1300px;
         margin: 7em auto;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+        font-family: 'Black Han Sans', sans-serif;
     }
     
     .text {
@@ -110,7 +111,6 @@
         cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: -webkit-linear-gradient(to right, #267871, #136a8a);
 		background: linear-gradient(to right, #267871, #136a8a);
         border: 0;
         padding-left: 50px;
@@ -128,7 +128,7 @@
       	cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: linear-gradient(to right, #ACD5B8, #7FB39D);
+        background: linear-gradient(to right, #267871, #136a8a);
         border: 0;
         padding-left: 50px;
         padding-right: 50px;
@@ -145,7 +145,7 @@
       	cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: linear-gradient(to right, #ACD5B8, #7FB39D);
+        background: linear-gradient(to right, #267871, #136a8a);
         border: 0;
         padding-left: 50px;
         padding-right: 50px;
@@ -163,7 +163,7 @@
     	cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: linear-gradient(to right, #ACD5B8, #7FB39D);
+        background: linear-gradient(to right, #267871, #136a8a);
         border: 0;
         padding-left: 50px;
         padding-right: 50px;
@@ -188,7 +188,7 @@
         text-decoration: none
     }
     
-    .active{background-color:#28675B; color:white;}
+    .active{background-color:#267871; color:white;}
     
   
 
@@ -239,6 +239,11 @@
 	    padding-left: 20px;
 	}
 	
+	#no-recommend {
+		text-align: center;
+		font-size: 33px;
+	}
+	
 	.paging {
 		text-align: center;
 		margin: 15px;
@@ -269,6 +274,46 @@
 		border-radius: 6px; 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+.tbl-t1 {overflow:hidden;margin:10px 0;border-top:1px solid #282828;border-bottom:1px solid #dadada;}
+.tbl-t1 table {width:70%;width:calc(100% + 1px);table-layout:fixed;}
+.tbl-t1 table th, .tbl-t1 table td {height:42px;padding:8px 14px;border-top:1px solid #dadada;border-right:1px solid #dadada;font-size:14px;line-height:30px;color:#767676;vertical-align:middle;text-align:left;}
+.tbl-t1 table th {padding:5px 25px;background:#f5f5f5;color:#282828;}
+.tbl-t1 table thead th {padding:4px 9px;text-align:center;}
+.tbl-t1 table thead ~ tbody > tr:first-child th,
+.tbl-t1 table thead ~ tbody > tr:first-child td {border-top:1px solid #282828;}
+.tbl-t1 table thead ~ tbody td,
+.tbl-t1 table tbody th[scope="rowgroup"] {text-align:center;}
+.tbl-t1 table tfoot th, .tbl-t1 table tfoot td {padding:4px 9px;background:#f5f5f5;color:#282828;text-align:center;}
+.tbl-t1 table tfoot .total th, .tbl-t1 table tfoot .total td {background:#c5c5c5;color:#282828;}
+.tbl-t1 > table > thead > tr:first-child th {border-top:0;}
+.tbl-t1 > table > colgroup + tbody > tr:first-child th,
+.tbl-t1 > table > colgroup + tbody > tr:first-child td {border-top:0;}
+.tbl-t1 td.nodata {padding: 70px 0;text-align: center; font-size: 18px;}
+.tbl-t1 td.nodata::before {content: '';display: block;margin: 0 auto 10px;width: 195px;height: 150px;background: url(../images/icon_not_found.svg) no-repeat center;background-size: contain;}
+
+.tbl-t1 td.tit {text-align:left;}
+.tbl-t1 td.tit a {display:inline-block;max-width:100%;line-height:26px;overflow:hidden;margin:1px 0 0;text-overflow:ellipsis;white-space:nowrap;border-bottom:1px solid #959595;vertical-align:top;}
+.tbl-t1 td.tit a:hover, .tbl-t1 td.tit a:focus {color:#274B48;border-color:#274B48;}
+.tbl-t1 td .side {float:right;}
+.tbl-t1 table + table {border-top:1px solid #282828;margin:10px 0 0;}
+.tbl-t1 td .img {position:relative;width:120px;height:75px;margin:auto;vertical-align:middle;}
+.tbl-t1 td .img:before {content:'';display:block;position:absolute;left:0;right:0;top:0;bottom:0;background:#f5f5f5;border:1px solid #ddd;box-sizing:border-box;}
+.tbl-t1 td .img img {position:relative;width:100%;height:100%;}
+.tbl-t1 td textarea {width:100%; height:100%; resize:none;}
+.tbl-t1 tbody tr td.tit .tooltip{cursor:pointer;}
+.tbl-t1 td .paper {color:#fff; position:relative; padding:2px 5px; background-color:red; border-radius:10px; width:40px; font-size:10px; font-weight:600; text-align:center; left:0; top:0;}
+.tbl-t1 th .icon-required {margin-left:-15px;}
+.tbl-t1.ty-2 {border-top:1px solid #dadada;}
+.tbl-t1 td input[type='text'], .tbl-t1 td input[type='password'] { position: relative; width: 100%; height: 32px; padding: 0 9px; border: 1px solid #c5c5c5; box-sizing: border-box; font-size: 14px; font-weight: bold; color: #444; line-height: 30px; }
+
 	
 	
 	

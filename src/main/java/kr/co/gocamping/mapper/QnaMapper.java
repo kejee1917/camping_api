@@ -13,6 +13,4 @@ public interface QnaMapper {
 	
 	List<Qna> selectQnaData(Qna qna);
 	
-	//Qna selectAnswerData(Qna qna);
-
 }
